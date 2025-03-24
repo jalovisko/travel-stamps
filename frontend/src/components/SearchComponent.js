@@ -4,16 +4,18 @@ const SearchComponent = ({ onCitySearch }) => {
   const [query, setQuery] = useState('');
 
   const handleSearch = () => {
-    onCitySearch(query);
+    if (query.trim() !== '') {
+      onCitySearch(query);
+    }
   };
 
   return (
     <div>
-      <input 
-        type="text" 
-        value={query} 
-        onChange={e => setQuery(e.target.value)} 
-        placeholder="Search for a city" 
+      <input
+        type="text"
+        value={query}
+        onChange={e => setQuery(e.target.value)}
+        placeholder="Search for a city"
       />
       <button onClick={handleSearch}>Search</button>
     </div>

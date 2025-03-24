@@ -1,19 +1,25 @@
 import React from 'react';
-import StampSVG from './StampSVG';
+import PassportStampSVG from './PassportStampSVG';
 
 const StampComponent = ({ stamp }) => {
+  // Example inline styles to space out the stamps. 
+  // You could also do this with a CSS class.
+  const containerStyle = {
+    width: '200px',
+    textAlign: 'center'
+  };
+
   return (
-    <div style={{ 
-      border: `3px solid ${stamp.color}`, 
-      padding: '10px', 
-      display: 'inline-block', 
-      margin: '10px'
-    }}>
-      <StampSVG stamp={stamp} />
-      <h3>{stamp.city}, {stamp.country}</h3>
-      {stamp.entryDate && <p>Entry: {new Date(stamp.entryDate).toLocaleDateString()}</p>}
-      {stamp.exitDate && <p>Exit: {new Date(stamp.exitDate).toLocaleDateString()}</p>}
-      {stamp.purpose && <p>Purpose: {stamp.purpose}</p>}
+    <div style={containerStyle}>
+      <PassportStampSVG
+        city={stamp.city}
+        country={stamp.country}
+        entryDate={stamp.entryDate}
+        exitDate={stamp.exitDate}
+        purpose={stamp.purpose}
+        icon={stamp.icon}
+        color={stamp.color}
+      />
     </div>
   );
 };
