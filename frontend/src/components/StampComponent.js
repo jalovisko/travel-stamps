@@ -2,15 +2,8 @@ import React from 'react';
 import PassportStampSVG from './PassportStampSVG';
 
 const StampComponent = ({ stamp }) => {
-  // Example inline styles to space out the stamps. 
-  // You could also do this with a CSS class.
-  const containerStyle = {
-    width: '200px',
-    textAlign: 'center'
-  };
-
   return (
-    <div style={containerStyle}>
+    <div style={{ margin: '1rem' }}>
       <PassportStampSVG
         city={stamp.city}
         country={stamp.country}
@@ -18,7 +11,7 @@ const StampComponent = ({ stamp }) => {
         exitDate={stamp.exitDate}
         purpose={stamp.purpose}
         icon={stamp.icon}
-        color={stamp.color}
+        // color={stamp.color} // or omit color to randomize each time
       />
     </div>
   );

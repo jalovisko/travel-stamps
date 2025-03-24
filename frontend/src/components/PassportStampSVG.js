@@ -1,10 +1,12 @@
 import React, { useMemo } from 'react';
+import placeIcons from '../data/placeIcons.json';
 
 /**
- * Props:
- *  - city, country, entryDate, exitDate, purpose
- *  - icon
- *  - color
+ * A rectangular passport stamp with:
+ *  - Rounded corners
+ *  - A top-left icon
+ *  - Multi-line text on the right
+ *  - Slight random rotation and random color
  */
 const PassportStampSVG = ({
   city = 'Unknown City',
@@ -13,109 +15,145 @@ const PassportStampSVG = ({
   exitDate,
   purpose,
   icon,
-  color = '#FF5733'
+  color
 }) => {
-  // If you have special icons for city/country, handle them here:
-  const finalIcon = icon || '/images/icons/generic-icon.png';
+  //
+  // 1) If no color is passed, pick a random color from a curated list.
+  //
+  const possibleColors = [
+    '#FF5733', // Reddish
+    '#33A1FF', // Blue
+    '#33FF57', // Green
+    '#FF33C4', // Pink/Magenta
+    '#FFB533', // Orange/Yellow
+    '#9D33FF'  // Purple
+  ];
 
-  // An example path with arcs and lines. You can tweak it or create your own.
-  // This shape is ~120 wide x 80 high.
+  const finalColor = useMemo(() => {
+    if (color) return color;
+    const index = Math.floor(Math.random() * possibleColors.length);
+    return possibleColors[index];
+  }, [color]);
+
+  //
+  // 2) Slight random angle so the stamp isn’t perfectly horizontal.
+  //    Range: -5..+5 degrees
+  //
+  const randomAngle = useMemo(() => {
+    return Math.floor(Math.random() * 11) - 5;
+  }, []);
+
+  //
+  // 3) Determine the icon path:
+  //    - If an `icon` prop is given, use that.
+  //    - Otherwise, see if placeIcons.json has a match for the city.
+  //    - Else, fallback to a generic icon.
+  //
+  const finalIcon = icon || (placeIcons[city] || '/images/icons/generic-icon.png');
+
+  //
+  // 4) Define a rectangle path with some margin for the icon in the top-left.
+  //    The SVG is 160x110, with a “rectangle” from (10,10) to (150,100).
+  //    Corners are slightly rounded using Q commands for a stamp-like feel.
+  //
+  const viewBoxWidth = 160;
+  const viewBoxHeight = 110;
   const stampPath = `
     M10,10
     Q10,0 20,0
-    L100,0
-    Q110,0 110,10
-    L110,70
-    Q110,80 100,80
-    L20,80
-    Q10,80 10,70
+    L140,0
+    Q150,0 150,10
+    L150,100
+    Q150,110 140,110
+    L20,110
+    Q10,110 10,100
     Z
   `;
 
-  // Slight random rotation for a more "stamped" feel
-  // (You could do a random angle, or set a fixed tilt like -5 degrees)
-  const randomRotation = useMemo(() => {
-    // e.g., random angle between -10 and 10 degrees
-    const angle = Math.floor(Math.random() * 21) - 10;
-    return `rotate(${angle}, 60, 40)`;
-  }, []);
-
+  //
+  // 5) Render the stamp
+  //
   return (
     <svg
-      width="120"
-      height="80"
-      viewBox="0 0 120 80"
-      style={{
-        // If you want to scale it bigger, just adjust width/height or use transform
-        display: 'block',
-      }}
+      width={viewBoxWidth}
+      height={viewBoxHeight}
+      viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
+      style={{ overflow: 'visible', display: 'block' }}
     >
-      {/* Group everything so we can rotate the entire stamp slightly */}
-      <g transform={randomRotation}>
-        {/* The dashed border to simulate a stamped edge */}
+      {/* Rotate around the center (80, 55) for a slight tilt */}
+      <g transform={`rotate(${randomAngle}, 80, 55)`}>
+        {/* Dashed rectangle border */}
         <path
           d={stampPath}
           fill="none"
-          stroke={color}
+          stroke={finalColor}
           strokeWidth="3"
           strokeDasharray="6,4"
         />
 
-        {/* Optional icon in the top-left */}
-        <image
-          href={finalIcon}
-          x="15"
-          y="10"
-          width="20"
-          height="20"
-        />
+        {/*
+          6) Place the icon in the top-left area. 
+             We'll colorize the black PNG icon using CSS masking in <foreignObject>.
+             Adjust x/y/width/height if it’s still too big or overlapping the border.
+        */}
+        <foreignObject x="20" y="10" width="30" height="30">
+          <div
+            style={{
+              width: '30px',
+              height: '30px',
+              backgroundColor: finalColor,
+              WebkitMaskImage: `url(${finalIcon})`,
+              WebkitMaskRepeat: 'no-repeat',
+              WebkitMaskPosition: 'center',
+              WebkitMaskSize: 'contain',
 
-        {/* City/Country text in the center */}
+              maskImage: `url(${finalIcon})`,
+              maskRepeat: 'no-repeat',
+              maskPosition: 'center',
+              maskSize: 'contain'
+            }}
+          />
+        </foreignObject>
+
+        {/*
+          7) Multi-line text to the right of the icon. 
+             We'll anchor at x=60 so there's space for the icon (30px wide + margin).
+             We use <tspan> to put each piece of data on its own line.
+        */}
         <text
-          x="60" 
-          y="35"
-          fill={color}
+          x="60"
+          y="25"
+          fill={finalColor}
           fontSize="10"
           fontWeight="bold"
-          textAnchor="middle"
+          textAnchor="start"
         >
-          {city}, {country}
-        </text>
+          {/* City on the first line */}
+          <tspan x="60" dy="0">{city}</tspan>
+          {/* Country on the second line */}
+          <tspan x="60" dy="1.2em">{country}</tspan>
 
-        {/* Entry/Exit/Purpose text below */}
-        {entryDate && (
-          <text
-            x="60"
-            y="50"
-            fill={color}
-            fontSize="8"
-            textAnchor="middle"
-          >
-            Entry: {new Date(entryDate).toLocaleDateString()}
-          </text>
-        )}
-        {exitDate && (
-          <text
-            x="60"
-            y="60"
-            fill={color}
-            fontSize="8"
-            textAnchor="middle"
-          >
-            Exit: {new Date(exitDate).toLocaleDateString()}
-          </text>
-        )}
-        {purpose && (
-          <text
-            x="60"
-            y="70"
-            fill={color}
-            fontSize="8"
-            textAnchor="middle"
-          >
-            {purpose}
-          </text>
-        )}
+          {/* Entry date (optional) */}
+          {entryDate && (
+            <tspan x="60" dy="1.2em">
+              Entry: {new Date(entryDate).toLocaleDateString()}
+            </tspan>
+          )}
+
+          {/* Exit date (optional) */}
+          {exitDate && (
+            <tspan x="60" dy="1.2em">
+              Exit: {new Date(exitDate).toLocaleDateString()}
+            </tspan>
+          )}
+
+          {/* Purpose (optional) */}
+          {purpose && (
+            <tspan x="60" dy="1.2em">
+              {purpose}
+            </tspan>
+          )}
+        </text>
       </g>
     </svg>
   );
