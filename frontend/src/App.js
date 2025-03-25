@@ -9,13 +9,9 @@ function App() {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [selectedCityData, setSelectedCityData] = useState(null);
 
-  // Example function for searching a city (forward geocoding with Nominatim)
-  // Then we open the confirmation modal
+  // Called when the user searches for a city (forward geocoding with Nominatim)
   const handleCitySearch = async (query) => {
-    // Replace with your actual forward geocoding logic
-    // e.g., fetch Nominatim, parse city/country
     const cityData = await fetchCityData(query);
-
     if (cityData) {
       setSelectedCityData(cityData);
       setShowConfirmation(true);
@@ -23,53 +19,79 @@ function App() {
   };
 
   // Called when the user clicks on the map (reverse geocoding)
-  // We open the confirmation modal
   const handleCitySelect = (cityData) => {
     setSelectedCityData(cityData);
     setShowConfirmation(true);
   };
 
-  // Called when user confirms the location in the modal
+  // Called when the user confirms the location in the modal
   const handleConfirmLocation = (finalData) => {
-    // finalData includes city, country, entryDate, exitDate, purpose
-    // We can add color, random angle, or any other stamp properties here
     const newStamp = {
       ...finalData,
-      // e.g., random color or default color
       color: randomReadableColor(),
     };
 
-    setStamps(prev => [...prev, newStamp]);
-
-    // Close the modal
+    setStamps((prev) => [...prev, newStamp]);
     setShowConfirmation(false);
     setSelectedCityData(null);
   };
 
-  // Example function to pick a random color from a curated list
+  // Picks a random color from a curated list
   const randomReadableColor = () => {
     const colors = ['#FF5733', '#33A1FF', '#33FF57', '#FF33C4', '#FFB533', '#9D33FF'];
     return colors[Math.floor(Math.random() * colors.length)];
+  };
+
+  // Export the current stamps array to a JSON file
+  const handleExportJSON = () => {
+    const jsonString = JSON.stringify(stamps, null, 2);
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(jsonString);
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "travel-stamps.json");
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  };
+
+  // Import stamps from a JSON file
+  const handleImportJSON = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      try {
+        const importedData = JSON.parse(evt.target.result);
+        if (Array.isArray(importedData)) {
+          setStamps(importedData);
+        } else {
+          console.error("Imported JSON is not an array of stamps");
+        }
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+      }
+    };
+    reader.readAsText(file);
   };
 
   return (
     <div>
       <h1>Travel Stamps</h1>
 
-      {/* 1) Searching for a city */}
+      {/* Searching for a city */}
       <SearchComponent onCitySearch={handleCitySearch} />
 
-      {/* 2) Clicking on the map */}
+      {/* Clicking on the map */}
       <MapComponent onCitySelect={handleCitySelect} />
 
-      {/* 3) Display the stamps */}
+      {/* Display the stamps */}
       <div className="stamps-container">
         {stamps.map((stamp, index) => (
           <StampComponent key={index} stamp={stamp} />
         ))}
       </div>
 
-      {/* 4) Confirmation Modal */}
+      {/* Confirmation Modal */}
       <LocationConfirmationModal
         show={showConfirmation}
         cityData={selectedCityData}
@@ -79,13 +101,24 @@ function App() {
         }}
         onConfirm={handleConfirmLocation}
       />
+
+      {/* Export/Import Buttons */}
+      <div style={{ margin: '1rem 0' }}>
+        <button onClick={handleExportJSON}>Export JSON</button>
+        <input
+          type="file"
+          accept=".json"
+          onChange={handleImportJSON}
+          style={{ marginLeft: '1rem' }}
+        />
+      </div>
     </div>
   );
 }
 
 export default App;
 
-// Example of forward geocoding (Nominatim)
+// Example of forward geocoding using Nominatim
 async function fetchCityData(query) {
   const url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&addressdetails=1&q=${encodeURIComponent(query)}`;
   try {

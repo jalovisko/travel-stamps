@@ -1,4 +1,21 @@
 {
+    "Russia": "/images/icons/russia.png",
+    "United Kingdom": "/images/icons/uk.png",
+    "Canada": "/images/icons/canada.png",
+    "China": "/images/icons/china.png",
+    "Czechia": "/images/icons/czechia.png",
+    "Estonia": "/images/icons/estonia.png",
+    "France": "/images/icons/france.png",
+    "Germany": "/images/icons/germany.png",
+    "India": "/images/icons/india.png",
+    "Italy": "/images/icons/italy.png",
+    "Latvia": "/images/icons/latvia.png",
+    "Lithuania": "/images/icons/lithuania.png",
+    "Pakistan": "/images/icons/pakistan.png",
+    "Spain": "/images/icons/spain.png",
+    "Tunisia": "/images/icons/tunisia.png",
+    "USA": "/images/icons/usa.png",
+
     "City of London": "/images/icons/london.png",
     "London": "/images/icons/london.png",
     "Moscow": "/images/icons/moscow.png",
@@ -7,6 +24,7 @@
     "Vatican": "/images/icons/vatican.png",
     "Dresden": "/images/icons/dresden.png",
     "Saint-Petersburg": "/images/icons/saint-petersburg.png"
+    
 
 }
   
