@@ -33,7 +33,9 @@ const PassportStampSVG = ({
 }) => {
   // 1) Choose color
   const possibleColors = [
-    '#FF5733', '#33A1FF', '#33FF57', '#FF33C4', '#FFB533', '#9D33FF'
+    '#0D47A1', '#1B5E20', '#B71C1C', '#004D40', '#3E2723', '#424242', '#1A237E', '#006064',
+    '#283593', '#880E4F', '#BF360C', '#00695C', '#4A148C', '#311B92', '#2C3E50', '#37474F',
+    '#4E342E', '#212121'
   ];
   const finalColor = useMemo(() => {
     if (color) return color;
