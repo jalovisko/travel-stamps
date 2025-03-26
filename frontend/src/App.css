@@ -1,13 +1,19 @@
-.travel-book {
-    background: url('/images/travel-book-bg.jpg') no-repeat center center;
-    background-size: cover;
-    min-height: 100vh; /* Fill the viewport height */
-    padding: 2rem;
-  }
-  
-  .stamps-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem; /* Space between stamps */
-  }
-  
+.stamp-book {
+  display: flex;
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto; /* center the "book" */
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.stamp-page {
+  flex: 1;
+  border: 1px solid #ccc;
+  min-height: 500px;
+  padding: 1rem;
+  background: #fafafa; /* pale background for each page */
+}
+
+.stamp-page + .stamp-page {
+  border-left: none; /* remove the vertical border between pages if you want */
+}

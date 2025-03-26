@@ -1,0 +1,11 @@
+.stamp-book {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    background: #f7f3e9;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  

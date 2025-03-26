@@ -1,0 +1,29 @@
+.toolbar {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #fafafa;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .toolbar button,
+  .import-label {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-family: 'Special Elite', monospace;
+    transition: background 0.2s;
+  }
+  
+  .toolbar button:hover,
+  .import-label:hover {
+    background: #f0f0f0;
+  }
+  
+  .import-label input {
+    display: none;
+  }
+  

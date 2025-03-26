@@ -1,20 +1,20 @@
 import React from 'react';
 import PassportStampSVG from './PassportStampSVG';
 
-const StampComponent = ({ stamp }) => {
+function StampComponent({ stamp }) {
   return (
-    <div style={{ margin: '1rem' }}>
+    <div style={{ margin: '0.5rem' }}>
       <PassportStampSVG
         city={stamp.city}
         country={stamp.country}
         entryDate={stamp.entryDate}
         exitDate={stamp.exitDate}
         purpose={stamp.purpose}
+        color={stamp.color}
         icon={stamp.icon}
-        // color={stamp.color} // or omit color to randomize each time
       />
     </div>
   );
-};
+}
 
 export default StampComponent;

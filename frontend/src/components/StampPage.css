@@ -1,0 +1,15 @@
+.stamp-page {
+    flex: 1;
+    padding: 1rem;
+    background: linear-gradient(135deg, #fdfdfd, #f7f3e9);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, auto);
+    gap: 1rem;
+    border-right: 1px solid #ddd;
+  }
+  
+  .stamp-page:last-child {
+    border-right: none;
+  }
+  
