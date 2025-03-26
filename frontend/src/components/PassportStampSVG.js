@@ -54,15 +54,16 @@ const PassportStampSVG = ({
     (placeIcons[city] || placeIcons[country] || '/images/icons/generic-icon.png');
 
   // 4) Stamp shape
-  const viewBoxWidth = 160;
+  // Increase viewBoxWidth and adjust path coordinates for a wider stamp.
+  const viewBoxWidth = 200;
   const viewBoxHeight = 110;
   const stampPath = `
     M10,10
     Q10,0 20,0
-    L140,0
-    Q150,0 150,10
-    L150,100
-    Q150,110 140,110
+    L180,0
+    Q190,0 190,10
+    L190,100
+    Q190,110 180,110
     L20,110
     Q10,110 10,100
     Z
@@ -76,8 +77,8 @@ const PassportStampSVG = ({
   const lines = [
     ...cityLines,
     ...countryLines,
-    entryDate ? `Entry: ${new Date(entryDate).toLocaleDateString()}` : null,
-    exitDate ? `Exit: ${new Date(exitDate).toLocaleDateString()}` : null,
+    entryDate ? `Entry: ${entryDate}` : null,
+    exitDate ? `Exit: ${exitDate}` : null,
     purpose || null
   ].filter(Boolean);
 
@@ -88,8 +89,8 @@ const PassportStampSVG = ({
       viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
       style={{ overflow: 'visible', display: 'block' }}
     >
-      {/* Slight rotation around center (80,55) */}
-      <g transform={`rotate(${randomAngle}, 80, 55)`}>
+      {/* Adjust rotation center to the new width (half of 200 is 100) */}
+      <g transform={`rotate(${randomAngle}, 100, 55)`}>
         {/* Dashed border */}
         <path
           d={stampPath}

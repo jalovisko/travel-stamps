@@ -21,8 +21,8 @@ const LocationConfirmationModal = ({
       city: cityData.city,
       country: cityData.country,
       // If a date is provided, convert string -> Date, else null
-      entryDate: entryDate ? new Date(entryDate) : null,
-      exitDate: exitDate ? new Date(exitDate) : null,
+      entryDate: entryDate || null,
+      exitDate: exitDate || null,
       purpose: purpose || ''
     });
   };

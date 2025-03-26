@@ -1,20 +1,28 @@
 {
-    "Russia": "/images/icons/russia.png",
-    "United Kingdom": "/images/icons/uk.png",
     "Canada": "/images/icons/canada.png",
     "China": "/images/icons/china.png",
     "Czechia": "/images/icons/czechia.png",
     "Estonia": "/images/icons/estonia.png",
     "France": "/images/icons/france.png",
     "Germany": "/images/icons/germany.png",
+    "Greece": "/images/icons/greece.png",
     "India": "/images/icons/india.png",
     "Italy": "/images/icons/italy.png",
     "Latvia": "/images/icons/latvia.png",
     "Lithuania": "/images/icons/lithuania.png",
     "Pakistan": "/images/icons/pakistan.png",
+    "Russia": "/images/icons/russia.png",
     "Spain": "/images/icons/spain.png",
     "Tunisia": "/images/icons/tunisia.png",
+    "United Kingdom": "/images/icons/uk.png",
     "USA": "/images/icons/usa.png",
+
+    "Bundesrepublik Deutschland": "/images/icons/germany.png",
+    "Česká republika": "/images/icons/czechia.png",
+    "Reino de España": "/images/icons/spain.png",
+    "Repubblica Italiana": "/images/icons/italy.png",
+    "Ελληνική Δημοκρατία": "/images/icons/greece.png",
+    "Российская Федерация": "/images/icons/russia.png",
 
     "City of London": "/images/icons/london.png",
     "London": "/images/icons/london.png",
@@ -32,8 +40,29 @@
     "Vetluga": "/images/icons/vetluga.png",
     "Peterhof": "/images/icons/peterhof.png",
     "Málaga": "/images/icons/malaga.png",
-    "Madrid": "/images/icons/madrid.png"
-    
+    "Madrid": "/images/icons/madrid.png",
+    "Marbella": "/images/icons/marbella.png",
+    "Toledo": "/images/icons/toledo.png",
+    "Zakynthos": "/images/icons/zakynthos.png",
+    "Dolgoprudny": "/images/icons/dolgoprudny.png",
+    "Prague": "/images/icons/prague.png",
+    "Granada": "/images/icons/granada.png",
+    "Ronda": "/images/icons/granada.png",
+
+    "Praha": "/images/icons/prague.png",
+    "Roma": "/images/icons/rome.png",
+    "Status Civitatis Vaticanae": "/images/icons/vatican.png",
+    "Москва": "/images/icons/moscow.png",
+    "Санкт-Петербург": "/images/icons/saint-petersburg.png",
+    "Анапа": "/images/icons/anapa.png",
+    "Реутов": "/images/icons/reutov.png",
+    "Кратово": "/images/icons/kratovo.png",
+    "Шахунья": "/images/icons/shakhunya.png",
+    "Нижний Новгород": "/images/icons/nizhny-novgorod.png",
+    "Ветлуга": "/images/icons/vetluga.png",
+    "Долгопрудный": "/images/icons/dolgoprudny.png",
+    "Петергоф": "/images/icons/peterhof.png",
+    "Ζάκυνθος": "/images/icons/zakynthos.png"
 
 }
   
